@@ -3,8 +3,11 @@
 
 // init project
 require('dotenv').config();
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
+const router = require("./myApp");
+
+const port = 3000;
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -13,6 +16,8 @@ app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 20
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
+
+app.use("/api", router);
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
@@ -28,6 +33,6 @@ app.get("/api/hello", function (req, res) {
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(process.env.PORT || port, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
